@@ -2,7 +2,7 @@ package sorting;
 
 public class HeapSort {
 	public static void main(String[] args) {
-		int[] arr= {-6,-4,1,0};
+		int[] arr= {4, 3, 2, 1,10, 9, 8, 7, 6, 5};
 		heapSort(arr);
 		for(int i:arr)
 		{
@@ -16,7 +16,7 @@ public class HeapSort {
 		int length = arr.length;
 		for(int i = (length-1)/2;i>=0;i--)
 		{
-			downHeapify(arr,length);
+			downHeapify(arr,length,i);
 		}
 		
 		for(int i=length-1;i>0;i--)
@@ -24,13 +24,12 @@ public class HeapSort {
 			int temp = arr[i];
 			arr[i] = arr[0];
 			arr[0] = temp;
-			downHeapify(arr,i);
+			downHeapify(arr,i,0);
 		}
 	}
 	
-	private static void downHeapify(int[] arr,int length)
+	private static void downHeapify(int[] arr,int length,int parentindex)
 	{
-		int parentindex = 0;
 		int leftindex = 2 * parentindex + 1;
 		int rightindex = 2 * parentindex + 2;
 		while(leftindex < length)
