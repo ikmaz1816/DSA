@@ -1,28 +1,23 @@
 package linkedlistimplementation;
 
-class Node
+class DNode
 {
 	int data;
-	Node next;
-	
-	public Node(int data)
+	DNode next;
+	DNode prev;
+	public DNode(int data)
 	{
 		this.data=data;
-	}
-	
-	public Node(int data,Node next)
-	{
-		this.data=data;
-		this.next=next;
+		next=null;
+		prev=null;
 	}
 }
-
-public class SinglyLinkedList {
-	private Node head;
-	private Node tail;
+public class DoublyLinkedList {
+	private DNode head;
+	private DNode tail;
 	private int size;
 	
-	public SinglyLinkedList()
+	public DoublyLinkedList()
 	{
 		head=tail=null;
 		size=0;
@@ -40,14 +35,15 @@ public class SinglyLinkedList {
 	
 	public void addFirst(int element)
 	{
-		Node node = new Node(element);
+		DNode node = new DNode(element);
 		if(isEmpty())
 		{
 			head=tail=node;
 		}
 		else
 		{
-			node.next=head;
+			node.next = head;
+			head.prev= node;
 			head=node;
 		}
 		size++;
@@ -60,15 +56,16 @@ public class SinglyLinkedList {
 			addFirst(element);
 			return;
 		}
-		Node node = new Node(element);
-		tail.next=node;
-		tail=tail.next;
+		DNode node = new DNode(element);
+		tail.next = node;
+		node.prev= tail;
+		tail = node;
 		size++;
 	}
 	
-	public Node getNode(int index)
+	public DNode getNode(int index)
 	{
-		Node temp = head;
+		DNode temp = head;
 		for(int i=0;i<index-1;i++)
 		{
 			temp = temp.next;
@@ -86,50 +83,59 @@ public class SinglyLinkedList {
 		{
 			addFirst(element);
 		}
-		else if(size==index)
+		else if(index==size)
 		{
 			addLast(element);
 		}
 		else
 		{
-			Node temp = getNode(index);
-			Node newNode = new Node(element);
-			newNode.next = temp.next;
-			temp.next = newNode;
+			DNode node = getNode(index);
+			DNode newNode = new DNode(element);
+			newNode.next = node.next;
+			newNode.prev = node;
+			node.next.prev=newNode;
+			node.next = newNode;
 			size++;
 		}
 	}
 	
 	public int deleteFirst()
 	{
+		int value = Integer.MIN_VALUE;
 		if(isEmpty())
+			return value;
+		else if(size==1)
 		{
-			return Integer.MIN_VALUE;
+			value = head.data;
+			head = head.next;
 		}
-		Node node =head;
-		head=head.next;
-		node.next = null;
+		else
+		{
+			value = head.data;
+			head = head.next;
+			head.prev.next = null;
+			head.prev=null;
+		}
 		size--;
-		return node.data;
+		return value;
 	}
 	
 	public int deleteLast()
 	{
 		int value = Integer.MIN_VALUE;
 		if(isEmpty())
-		{
 			return value;
-		}
 		else if(size==1)
 		{
 			value=deleteFirst();
 		}
 		else
 		{
-			Node temp = getNode(size-1);
-			value = tail.data;
+			DNode temp = getNode(size-1);
 			temp.next = null;
-			tail = temp;
+			value = tail.data;
+			tail.prev = null;
+			tail =temp;
 			size--;
 		}
 		return value;
@@ -138,26 +144,27 @@ public class SinglyLinkedList {
 	public int delete(int index)
 	{
 		int value = Integer.MIN_VALUE;
-		if(index>size)
+		if(isEmpty())
 		{
 			return value;
 		}
-		else if(index==0)
+		else if(size==1)
 		{
-			value=deleteFirst();
+			value = deleteFirst();
 		}
-		else if(index==size-1)
+		else if(size-1==index)
 		{
 			value=deleteLast();
 		}
-		else
-		{
-			Node temp = getNode(index-1);
-			Node nodeToBeDeleted = temp.next;
-			value = nodeToBeDeleted.data;
+		else {
+			DNode temp = getNode(index-1);
+			DNode nodeToBeDeleted = temp.next;
 			temp.next = temp.next.next;
-			nodeToBeDeleted.next = null;
+			temp.next.prev = temp;
 			size--;
+			value = nodeToBeDeleted.data;
+			nodeToBeDeleted.next=null;
+			nodeToBeDeleted.prev=null;
 		}
 		return value;
 	}
@@ -165,7 +172,7 @@ public class SinglyLinkedList {
 	@Override
 	public String toString()
 	{
-		Node temp =head;
+		DNode temp =head;
 		StringBuilder sb=new StringBuilder();
 		while(temp.next!=null)
 		{
@@ -177,7 +184,7 @@ public class SinglyLinkedList {
 	}
 	
 	public static void main(String[] args) {
-		SinglyLinkedList ll=new SinglyLinkedList();
+		DoublyLinkedList ll=new DoublyLinkedList();
 		ll.addFirst(4);
 		ll.addFirst(3);
 		ll.addFirst(2);
