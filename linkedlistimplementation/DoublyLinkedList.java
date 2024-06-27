@@ -1,17 +1,5 @@
 package linkedlistimplementation;
 
-class DNode
-{
-	int data;
-	DNode next;
-	DNode prev;
-	public DNode(int data)
-	{
-		this.data=data;
-		next=null;
-		prev=null;
-	}
-}
 public class DoublyLinkedList {
 	private DNode head;
 	private DNode tail;
@@ -181,6 +169,11 @@ public class DoublyLinkedList {
 		}
 		sb.append(temp.data);
 		return sb.toString();
+	}
+	
+	public DNode getHead()
+	{
+		return this.head;
 	}
 	
 	public static void main(String[] args) {
