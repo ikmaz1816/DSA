@@ -3,7 +3,7 @@ package searching;
 public class BinarySearch {
 	public static void main(String[] args) {
 		int[] arr= {1,2,3,4,5};
-		if(binarySearch(arr,3))
+		if(binarySearch(arr,1))
 		{
 			System.out.println("Element is present in the array");
 		}
