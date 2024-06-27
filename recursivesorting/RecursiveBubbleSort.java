@@ -2,7 +2,7 @@ package recursivesorting;
 
 public class RecursiveBubbleSort {
 	public static void main(String[] args) {
-		int[] arr= {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+		int[] arr= {4, 3, 2, 1,10, 9, 8, 7, 6, 5};
 		recursiveBubbleSort(arr,arr.length-1,0);
 		for(int i:arr)
 		{
