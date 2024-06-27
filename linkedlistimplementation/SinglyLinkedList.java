@@ -53,6 +53,11 @@ public class SinglyLinkedList {
 		size++;
 	}
 	
+	public Node getHead()
+	{
+		return this.head;
+	}
+	
 	public void addLast(int element)
 	{
 		if(isEmpty())
