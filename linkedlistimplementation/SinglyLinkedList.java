@@ -1,21 +1,6 @@
 package linkedlistimplementation;
 
-class Node
-{
-	int data;
-	Node next;
-	
-	public Node(int data)
-	{
-		this.data=data;
-	}
-	
-	public Node(int data,Node next)
-	{
-		this.data=data;
-		this.next=next;
-	}
-}
+
 
 public class SinglyLinkedList {
 	private Node head;
@@ -58,6 +43,37 @@ public class SinglyLinkedList {
 		return this.head;
 	}
 	
+	public void addRecursively(int index,int element)
+	{
+		head=addRecursively(head,element,index);
+	}
+	private Node addRecursively(Node head, int element, int index) {
+		if(index==0)
+		{
+			Node n = new Node(element);
+			n.next = head;
+			return n;
+		}
+		head.next = addRecursively(head.next,element,index-1);
+		return head;
+	}
+	
+	public void deleteRecursively(int index)
+	{
+		head = deleteRecursively(index,head);
+	}
+
+	private Node deleteRecursively(int index, Node head) {
+		if(index==0)
+		{
+			return head.next;
+		}
+		
+		head.next = deleteRecursively(index-1,head.next);
+		return head;
+		
+	}
+
 	public void addLast(int element)
 	{
 		if(isEmpty())
@@ -199,6 +215,10 @@ public class SinglyLinkedList {
 		System.out.println(ll);
 		ll.addFirst(1);
 		ll.addLast(5);
+		System.out.println(ll);
+		ll.addRecursively(2, 20);
+		System.out.println(ll);
+		ll.deleteRecursively(2);
 		System.out.println(ll);
 		
 	}	
