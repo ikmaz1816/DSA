@@ -9,7 +9,7 @@ public class SinglyLinkedList {
 	
 	public SinglyLinkedList()
 	{
-		head=tail=null;
+		setHead(tail=null);
 		size=0;
 	}
 	
@@ -28,12 +28,12 @@ public class SinglyLinkedList {
 		Node node = new Node(element);
 		if(isEmpty())
 		{
-			head=tail=node;
+			setHead(tail=node);
 		}
 		else
 		{
-			node.next=head;
-			head=node;
+			node.next=getHead();
+			setHead(node);
 		}
 		size++;
 	}
@@ -45,7 +45,7 @@ public class SinglyLinkedList {
 	
 	public void addRecursively(int index,int element)
 	{
-		head=addRecursively(head,element,index);
+		setHead(addRecursively(getHead(),element,index));
 	}
 	private Node addRecursively(Node head, int element, int index) {
 		if(index==0)
@@ -60,7 +60,7 @@ public class SinglyLinkedList {
 	
 	public void deleteRecursively(int index)
 	{
-		head = deleteRecursively(index,head);
+		setHead(deleteRecursively(index,getHead()));
 	}
 
 	private Node deleteRecursively(int index, Node head) {
@@ -89,7 +89,7 @@ public class SinglyLinkedList {
 	
 	public Node getNode(int index)
 	{
-		Node temp = head;
+		Node temp = getHead();
 		for(int i=0;i<index-1;i++)
 		{
 			temp = temp.next;
@@ -127,8 +127,8 @@ public class SinglyLinkedList {
 		{
 			return Integer.MIN_VALUE;
 		}
-		Node node =head;
-		head=head.next;
+		Node node =getHead();
+		setHead(getHead().next);
 		node.next = null;
 		size--;
 		return node.data;
@@ -186,7 +186,7 @@ public class SinglyLinkedList {
 	@Override
 	public String toString()
 	{
-		Node temp =head;
+		Node temp =getHead();
 		StringBuilder sb=new StringBuilder();
 		while(temp.next!=null)
 		{
@@ -221,5 +221,9 @@ public class SinglyLinkedList {
 		ll.deleteRecursively(2);
 		System.out.println(ll);
 		
+	}
+
+	public void setHead(Node head) {
+		this.head = head;
 	}	
 }
