@@ -37,7 +37,7 @@ public class NKnights {
 			for(boolean col:row)
 			{
 				if(col)
-					System.out.print("Q ");
+					System.out.print("K ");
 				else
 					System.out.print("X ");
 			}
