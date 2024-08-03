@@ -13,7 +13,7 @@ public class LevelOrderTraversal {
 		while(!q.isEmpty())
 		{
 			Node node = q.poll();
-			System.out.print(node.data);
+			System.out.print(node.data+" ");
 			if(node.left!=null)
 			{
 				q.add(node.left);
@@ -25,7 +25,7 @@ public class LevelOrderTraversal {
 		}
 	}
 	
-	public List<List<Integer>> levelOrder(TreeNode root) {
+	public static List<List<Integer>> levelOrder(TreeNode root) {
         if(root==null)
             return new ArrayList<>();
         Queue<TreeNode> q=new LinkedList<>();
