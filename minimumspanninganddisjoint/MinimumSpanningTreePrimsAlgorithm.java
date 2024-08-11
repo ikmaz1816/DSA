@@ -20,7 +20,7 @@ public class MinimumSpanningTreePrimsAlgorithm {
         List<List<Pair>> adj=new ArrayList<>();
         for(int i=0;i<V;i++)
             adj.add(new ArrayList<>());
-        for(int i=0;i<adjT.size();i++)
+        for(int i=0;i<V;i++)
         {
             for(int[] j:adjT.get(i))
             {
